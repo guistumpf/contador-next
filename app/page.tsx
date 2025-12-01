@@ -1,12 +1,28 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 
 export default function App(){
 
 const [numero, setnumero] = useState(0)
+const [carregado, setCarregado] = useState(false);
 
+
+ useEffect(() => {
+       if(carregado){
+           localStorage.setItem("numero", numero.toString())
+        }
+    }, 
+[numero, carregado])
+    
+useEffect(() =>{
+    const salvo = localStorage.getItem("numero")
+if(salvo !== null ){
+    setnumero(+salvo)
+}
+setCarregado(true)
+}, [])
 
 let cor
 
